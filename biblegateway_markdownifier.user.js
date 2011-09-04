@@ -9,23 +9,29 @@
 // @license        MIT
 // ==/UserScript==
 
-// String formatting function
-// http://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format/4673436#4673436
-String.prototype.format = function() {
-  var args = arguments;
-  return this.replace(/{(\d+)}/g, function(match, number) { 
-    return typeof args[number] != 'undefined'
-      ? args[number]
-      : '{' + number + '}'
-    ;
-  });
-};
-
-// answer template
-var markdownTemplate = "> [**{0} {1}**]({2}) {3}";
+// js loader
+// http://stackoverflow.com/questions/2588513/why-doesnt-jquery-work-in-chrome-user-scripts-greasemonkey/6825715#6825715
+var load,execute,loadAndExecute;load=function(a,b,c){var d;d=document.createElement("script"),d.setAttribute("src",a),b!=null&&d.addEventListener("load",b),c!=null&&d.addEventListener("error",c),document.body.appendChild(d);return d},execute=function(a){var b,c;typeof a=="function"?b="("+a+")();":b=a,c=document.createElement("script"),c.textContent=b,document.body.appendChild(c);return c},loadAndExecute=function(a,b){return load(a,function(){return execute(b)})};
 
 // Parse and format (hacky...)
-$(document).ready(function() {
+loadAndExecute("http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js",
+        function() {  //$(document).ready(function() {
+
+    // String formatting function
+    // http://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format/4673436#4673436
+    String.prototype.format = function() {
+      var args = arguments;
+      return this.replace(/{(\d+)}/g, function(match, number) { 
+        return typeof args[number] != 'undefined'
+          ? args[number]
+          : '{' + number + '}'
+        ;
+      });
+    };
+
+    // answer template
+    var markdownTemplate = "> [**{0} {1}**]({2}) {3}";
+
     var $textarea = $('<textarea rows="25" cols="80" class="markdown-export"></textarea>');
 
     var passage = $("div.heading.passage-class-0 > h3").text();
@@ -35,7 +41,7 @@ $(document).ready(function() {
     var $text = $("div.result-text-style-normal").clone();
 
     // remove unnecessary stuff
-    $.each(['div', 'sup.xref', 'sup.footnote', 'h3', 'h4', 'h5', 'font'],
+    $.each(['div', 'sup.xref', 'sup.footnote', 'h3', 'h4', 'h5'],
             function(i, matcher) {
         $text.find(matcher).remove();
     });
@@ -66,4 +72,5 @@ $(document).ready(function() {
     $textarea.focus(function() {this.select()});
     
     $("div.passage-left").append($textarea);
+//});
 });
