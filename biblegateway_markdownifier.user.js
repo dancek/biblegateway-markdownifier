@@ -3,7 +3,7 @@
 // @namespace      http://github.com/dancek
 // @description    Create copypasteable markdown from BibleGateway passages
 // @include        http://www.biblegateway.com/passage/*
-// @version        0.1dev
+// @version        0.1
 // @author         Hannu Hartikainen
 // @license        MIT
 // ==/UserScript==
