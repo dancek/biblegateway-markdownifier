@@ -67,7 +67,8 @@ $(document).ready(function() {
     text = text.replace(/<p><\/p>/gi, '');
     text = text.replace(/<p>/gi, '\n');
     text = text.replace(/<\/p>/gi, '');
-    text = text.replace(/<\/?font[^>]*>/, '');
+    text = text.replace(/<\/?font[^>]*>/gi, '');
+    text = text.replace(/<\/?span[^>]*>/gi, '');
 
     var lines = text.split('\n');
     text = lines.join('  \n> ');
