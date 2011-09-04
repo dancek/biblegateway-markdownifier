@@ -3,7 +3,7 @@
 // @namespace      http://github.com/dancek
 // @description    Create copypasteable markdown from BibleGateway passages
 // @include        http://www.biblegateway.com/passage/*
-// @version        0.1
+// @version        0.1.1
 // @author         Hannu Hartikainen
 // @license        MIT
 // ==/UserScript==
@@ -67,9 +67,10 @@ $(document).ready(function() {
     text = text.replace(/<p><\/p>/gi, '');
     text = text.replace(/<p>/gi, '\n');
     text = text.replace(/<\/p>/gi, '');
+    text = text.replace(/<\/?font[^>]*>/, '');
 
     var lines = text.split('\n');
-    text = lines.join(' <br />\n> ');
+    text = lines.join('  \n> ');
 
     // generate the complete markdown
     var markdown = markdownTemplate.format(
