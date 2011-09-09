@@ -57,7 +57,7 @@ $(document).ready(function() {
             function(i, matcher) {
         $text.find(matcher).remove();
     });
-    $text.find('sup').removeAttr('class').removeAttr('id');
+    $text.find('sup').removeAttr('class').removeAttr('id').after(document.createTextNode(' '));
     $text.contents().filter(function() {
         return this.nodeType == 8;
     }).remove();
@@ -69,6 +69,7 @@ $(document).ready(function() {
     text = text.replace(/<\/p>/gi, '');
     text = text.replace(/<\/?font[^>]*>/gi, '');
     text = text.replace(/<\/?span[^>]*>/gi, '');
+    	text = text.replace(/&nbsp;/gi, '');
 
     var lines = text.split('\n');
     text = lines.join('  \n> ');
@@ -87,4 +88,3 @@ $(document).ready(function() {
     
     $("div.passage-left").append($textarea);
 });
-
