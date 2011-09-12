@@ -62,6 +62,7 @@ $(document).ready(function() {
         return this.nodeType == 8;
     }).remove();
 
+    // remove some remaining tags, but keep text content
     var text = $text.html();
     text = text.replace(/<br *\/?>/gi, '\n');
     text = text.replace(/<p><\/p>/gi, '');
@@ -69,6 +70,8 @@ $(document).ready(function() {
     text = text.replace(/<\/p>/gi, '');
     text = text.replace(/<\/?font[^>]*>/gi, '');
     text = text.replace(/<\/?span[^>]*>/gi, '');
+    // change &nbsp; before verse number to normal space
+    text = text.replace(/&nbsp;<sup>/gi, ' <sup>');
 
     var lines = text.split('\n');
     text = lines.join('  \n> ');
