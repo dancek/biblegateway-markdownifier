@@ -57,7 +57,7 @@ $(document).ready(function() {
             function(i, matcher) {
         $text.find(matcher).remove();
     });
-    $text.find('sup').removeAttr('class').removeAttr('id');
+    $text.find('sup').removeAttr('class').removeAttr('id').after(' ');
     $text.contents().filter(function() {
         return this.nodeType == 8;
     }).remove();
